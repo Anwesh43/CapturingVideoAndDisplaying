@@ -1,0 +1,64 @@
+<html>
+<script src="jquery-1.8.3.js">
+</script>
+<script>
+var obj,ctx,vid;
+var j=0,k=0;
+var msg="vr";
+var n=0;
+var ima;
+window.onload=function()
+{
+
+obj=document.getElementById('tik');
+ctx=obj.getContext('2d');
+vid=document.getElementById('vid');
+navigator.webkitGetUserMedia({audio:false,video:true},success,error);
+pop();
+};
+function success(stream)
+{
+vid.src=window.URL.createObjectURL(stream);
+k=1;
+}
+function error(err)
+{
+alert(err);
+}
+window.onkeydown=function(event)
+{
+if(event.keyCode==39)
+{
+n++;
+}
+if(event.keyCode==32)
+{
+sessionStorage.len=j;
+window.location="Showter.html";
+}
+};
+function pop()
+{
+
+//ima.src="vr"+n+".png";
+ctx.clearRect(0,0,1000,600);
+ctx.drawImage(vid,0,0,500,500);
+msg="vr"+j+".png";
+if(k==1)
+{
+capture();
+j++;
+}
+setTimeout("pop()",1);
+}
+function capture()
+{
+$.ajax({url:"Savdec.php",type:"POST",data:{"a":obj.toDataURL(),"msg":msg}});
+}
+</script>
+<canvas id='tik' width='500px' height='500px'>
+</canvas>
+<video id='vid' autoplay height='500px' width='500px' style='visibility:hidden'>
+</video>
+
+</html>

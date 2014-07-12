@@ -1,0 +1,29 @@
+<script>
+var xhr=new XMLHttpRequest();
+var j=0,len;
+window.onload=function()
+{
+len=sessionStorage.len;
+pop();
+};
+function pop()
+{
+var msg="vr"+j+".png";
+xhr.open("GET",msg);
+xhr.responseType='blob';
+xhr.onreadystatechange=function()
+{
+if(xhr.readyState==4 && xhr.status==200)
+{
+var ur=window.URL.createObjectURL(xhr.response);
+document.getElementById('tik').src=ur;
+}
+};
+xhr.send(null);
+j++;
+if(j==len)
+j=0;
+setTimeout("pop()",300);
+}
+</script>
+<img id='tik'>
